@@ -44,7 +44,6 @@ module.exports = {
   devtool: isDev ? 'source-map' : false,
   devServer: {
     port: 3000,
-    hot: true,
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -58,7 +57,7 @@ module.exports = {
     new CopyPlugin([
       {
         from: path.resolve(__dirname, 'src/favicon.ico'),
-        to: path.resolve(__dirname, 'dist/favicon.ico'),
+        to: path.resolve(__dirname, 'dist'),
       },
     ]),
     new MiniCssExtractPlugin({
@@ -84,7 +83,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: getJsLoaders(),
+        use: getJsLoaders(),
       },
     ],
   },
