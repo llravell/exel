@@ -7,6 +7,10 @@ export class TableSelection {
     this.current = null;
   }
 
+  get selectedIds() {
+    return this.selected.map(($el) => $el.data.id);
+  }
+
   select($cell) {
     this.clear();
 
@@ -25,5 +29,9 @@ export class TableSelection {
   clear() {
     this.selected.forEach(($c) => $c.removeClass(TableSelection.className));
     this.selected = [];
+  }
+
+  applyStyle(style) {
+    this.selected.forEach($el => $el.css(style));
   }
 }

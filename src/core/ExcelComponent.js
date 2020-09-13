@@ -2,9 +2,11 @@ import {DomListner} from '@core/DomListner';
 
 export class ExcelComponent extends DomListner {
   constructor($root, options = {}) {
-    super($root, options.listners);
+    super($root, options.listeners);
     this.name = options.name || '';
     this.emitter = options.emitter;
+    this.store = options.store;
+    this.subscribe = options.subscribe || [];
 
     this.unsubscribers = [];
 
@@ -26,12 +28,28 @@ export class ExcelComponent extends DomListner {
     this.unsubscribers.push(unsubscribe);
   }
 
+  $dispatch(action) {
+    this.store.dispatch(action);
+  }
+
+  storeChanged() {
+
+  }
+
+  isWatching(key) {
+    return this.subscribe.includes(key);
+  }
+
+  get $state() {
+    return this.store.getState();
+  }
+
   init() {
-    this.initDOMListners();
+    this.initDOMListeners();
   }
 
   destroy() {
-    this.removeDOMListners();
+    this.removeDOMListeners();
     this.unsubscribers.forEach((unsubscribe) => unsubscribe());
   }
 }

@@ -14,11 +14,20 @@ class Dom {
   }
 
   text(val) {
-    if (typeof val === 'string') {
+    if (val !== undefined) {
       this.$el.textContent = val;
       return this;
     }
     return this.$el.textContent;
+  }
+
+  attr(name, value) {
+    if (value !== undefined) {
+      this.$el.setAttribute(name, value);
+      return this;
+    }
+
+    return this.$el.getAttribute(name);
   }
 
   clear() {
@@ -77,6 +86,13 @@ class Dom {
       this.$el.style[key] = value;
     });
     return this;
+  }
+
+  getStyles(styles = []) {
+    return styles.reduce(
+        (acc, s) => ({...acc, [s]: this.$el.style[s]}),
+        {}
+    );
   }
 
   addClass(className) {

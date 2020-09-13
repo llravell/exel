@@ -1,16 +1,16 @@
 import {capitalize} from '@core/utils';
 
 export class DomListner {
-  constructor($root, listners = [], name) {
+  constructor($root, listeners = [], name) {
     if (!$root) {
       throw new Error('No $root provided forDomListner');
     }
     this.$root = $root;
-    this.listners = listners;
+    this.listeners = listeners;
   }
 
-  initDOMListners() {
-    this.listners.forEach(listner => {
+  initDOMListeners() {
+    this.listeners.forEach(listner => {
       const method = getMethodName(listner);
       if (!this[method]) {
         throw new Error(
@@ -22,8 +22,8 @@ export class DomListner {
     });
   }
 
-  removeDOMListners() {
-    this.listners.forEach(listner => {
+  removeDOMListeners() {
+    this.listeners.forEach(listner => {
       const method = getMethodName(listner);
       this.$root.off(listner, this[method]);
     });
