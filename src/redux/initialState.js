@@ -1,6 +1,14 @@
 import {storage} from '@core/utils';
 import {DEFAULT_STYLES, DEFAULT_TITLE} from '@/constants';
 
+const formatDate = (date) => {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return `${day}.${month.toString().length === 1 ? '0' : ''}${month}.${year}`;
+};
+
 const defaultState = {
   colState: {},
   rowState: {},
@@ -11,10 +19,11 @@ const defaultState = {
   title: DEFAULT_TITLE,
 };
 
-export const initialState = {
+export const getInitialState = (storageName) => ({
   ...defaultState,
-  ...storage('excel-state'),
+  ...storage(storageName),
 
   currentText: '',
   currentStyles: {...DEFAULT_STYLES},
-};
+  date: formatDate(new Date()),
+});
